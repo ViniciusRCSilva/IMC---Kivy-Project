@@ -1,0 +1,120 @@
+<userinfo>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'CALCULATE YOUR IMC'
+            font_size: 18
+        AsyncImage:
+            source: '../logo.png'
+            width: 100
+            allow_stretch: True
+        Label:
+            text: ''
+        Button:
+            text: "Proceed"
+            size_hint: 1, 0.5
+            bold: True
+            background_color: '#102dad'
+            background_normal: ''
+            on_press: root.manager.current = 'imccalc'
+
+        Button:
+            text: 'EXIT'
+            size_hint: 1, 0.5
+            bold: True
+            background_color: '#a70b0b'
+            background_normal: ''
+            on_press: app.stop()
+
+<LblTxt@BoxLayout>:
+    orientation: 'horizontal'      
+    lblTxtIn: 'default'
+    hintTxtIn: 'default'
+    theTxt: iAmTxt
+    Label:
+        text: root.lblTxtIn
+    TextInput:
+        id: iAmTxt  
+        text: ''
+        hint_text: root.hintTxtIn
+
+<imccalc>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'CALCULATE YOUR IMC'
+            font_size: 16
+        AsyncImage:
+            source: '../logo.png'
+            width: 50
+            allow_stretch: True
+        LblTxt:   
+            id: altura
+            lblTxtIn: 'Height'
+            hintTxtIn: 'ex: 1.70'
+        LblTxt:   
+            id: peso
+            lblTxtIn: 'Weight'
+            hintTxtIn: 'ex: 68.2'
+        Button:
+            text: 'Calculate'
+            size_hint: 1, 0.5
+            bold: True
+            background_color: '#102dad'
+            background_normal: ''
+            on_release: imc.theTxt.text = str(round(float(peso.theTxt.text) / (float(altura.theTxt.text) * float(altura.theTxt.text)),2))
+        LblTxt:   
+            id: imc
+            lblTxtIn: 'Result'
+            hintTxtIn: '...'
+        Button:
+            text: 'Results Orientation'
+            size_hint: 1, 0.5
+            bold: True
+            background_color: '#11a70b'
+            background_normal: ''
+            on_press: root.manager.current = 'medicorientation'
+        Button:
+            text: 'Back to home page'
+            size_hint: 1, 0.5
+            bold: True
+            background_color: '#a70b0b'
+            background_normal: ''
+            on_press: root.manager.current = 'userinfo'
+
+<medicorientation>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        Label:
+            text: 'RESULTS'
+            font_size: 16
+        AsyncImage:
+            source: '../logo.png'
+            width: 50
+            allow_stretch: True
+
+        Label:
+            text: 'If your IMC is less or equal 18.0, weight too low'
+            color: '#102dad'        
+        Label:
+            text: 'If your IMC is less or equal 24.9, ideal weight'
+            color: '#11a70b'
+        Label:
+            text: 'If your IMC is less or equal 29.9, overweight'
+            color: '#fada1e'
+        Label:
+            text: 'If your IMC bigger than 29.9, severe obesity | search IMMEDIATELY for a doctor'
+            color: '#a70b0b'
+
+        Button:
+            text: 'Back to form page'
+            size_hint: 1, 0.5
+            bold: True
+            background_color: '#a70b0b'
+            background_normal: ''
+            on_press: root.manager.current = 'imccalc'
